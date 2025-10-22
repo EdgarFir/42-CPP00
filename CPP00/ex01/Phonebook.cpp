@@ -36,15 +36,17 @@ void printCol(std::string field, int colIndex)
 bool Phonebook::showContactInfo(std::string index)
 {
 	if (!(index.size() == 1 && isdigit(index[0])))
-		throw std::runtime_error("Invalid index\n");
+		throw std::runtime_error("Invalid index");
 	int nIndex;
 
 	nIndex = std::atoi(index.c_str());
 
 	if (!(nIndex >= 1 && nIndex <= MAX_CONTACTS)) 
-		throw std::runtime_error("Invalid index range\n");
+		throw std::runtime_error("Invalid index range");
 	if (nIndex > _nbContacts)
-		throw std::runtime_error("Contact index does not exist\n");
+		throw std::runtime_error("Contact index does not exist");
+	
+	std::cout << "\n";
 
 	std::cout 
 		<< "Last name: " << _list[nIndex - 1].getId() << "\n"
@@ -92,7 +94,7 @@ void Phonebook::searchContacts()
 		}
 		catch(const std::exception& e)
 		{
-			std::cout << e.what() << "Type from 1 - " << _nbContacts << "\n";
+			std::cout << e.what() << ", type again\n";
 			continue;
 		}
 		break ;
@@ -103,19 +105,19 @@ void Phonebook::addContact()
 {
 	Contact new_contact;
 
-	std::cout << "\n>> Add contact << \n";
+	std::cout << "\n>> Add contact <<\n\n";
 	new_contact.setFirstName(getPromptRes("First name: "));
 	new_contact.setLastName(getPromptRes("Last name: "));
 	new_contact.setNickname(getPromptRes("Nickname: "));
 	new_contact.setDarkestSecret(getPromptRes("Darkest secret: "));
 	new_contact.setPhonenumber(getPromptRes("Phonenumber: "));
-	new_contact.setId(_nbContacts + 1);
+	new_contact.setId((_nbContacts + 1) % MAX_CONTACTS);
 
 	_list[_lastContactIndexAdded] = new_contact;
 	_lastContactIndexAdded = (_lastContactIndexAdded + 1) % MAX_CONTACTS;
 	if (_nbContacts < MAX_CONTACTS)
 		_nbContacts++;
-	std::cout << ">> Contact added with success <<\n\n"; 
+	std::cout << "\n>> Contact added with success <<\n\n"; 
 }
 
 void Phonebook::phonebookLoop()
@@ -124,11 +126,14 @@ void Phonebook::phonebookLoop()
 
 	while (option != "EXIT")
 	{
-		option = getPromptRes("ADD - SEARCH - EXIT\nType an option: ");
+		std::cout << ">> Main menu <<\n\n";
+		option = getPromptRes("ADD - SEARCH - EXIT\n\nType an option: ");
 
 		if (option == "ADD")
 			addContact();
 		else if (option == "SEARCH")
 			searchContacts();
+		else if (option != "EXIT")
+			std::cout << "Type a valid option\n";
 	}
 }

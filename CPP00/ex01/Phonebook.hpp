@@ -3,14 +3,14 @@
 
 #include "Contact.hpp"
 
-#define MAX_CONTACTS 2
+#define MAX_CONTACTS 8
 
 class Phonebook {
 public:
     Phonebook();
     ~Phonebook();
 
-    void	searchContacts() const;
+    void	searchContacts();
 	void	phonebookLoop();
 
 private:
