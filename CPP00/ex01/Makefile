@@ -1,6 +1,6 @@
-NAME = phonebook
+NAME = Phonebook
 
-SRCS = Contact.cpp Phonebook.cpp main.cpp
+SRCS = Contact.cpp PhoneBook.cpp main.cpp
 
 OBJS = ${SRCS:.cpp=.o}
 
@@ -24,6 +24,7 @@ clean:
 	${RM} ${OBJS}
 
 fclean: clean
+	${RM} ${NAME}
 
 re: fclean all
 

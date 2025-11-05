@@ -1,13 +1,12 @@
 #include <iostream>
-#include <cctype>
 
-std::string to_uppercase(char *str) {
-    std::string uppercaseString = str;
+std::string to_uppercase(std::string str) 
+{
+    std::string upper_str = str;
 
-    for (size_t i = 0; i < uppercaseString.length(); i++)
-        uppercaseString[i] = toupper(uppercaseString[i]);
-    
-    return uppercaseString;
+    for (size_t i = 0; i < str.size(); i++)
+        upper_str[i] = std::toupper(upper_str[i]);
+    return upper_str;
 }
 
 int main (int argc, char **argv) {
